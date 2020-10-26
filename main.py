@@ -2,12 +2,8 @@
 # -*- coding: utf-8 -*-
 # vim:fenc=utf-8
 #
-# Copyright © 2020 patch <patch@patchbox>
-#
-# Distributed under terms of the MIT license.
-
 """
-
+    Checks for ISP speeds and uploads them to the local PSQL server
 """
 import configparser
 from datetime import datetime
@@ -17,6 +13,7 @@ import psycopg2
 
 
 def get_config():
+    """Generates a config parser object to read the .ini file"""
     config = configparser.ConfigParser()
     config.read('config.ini')
     return config
@@ -33,6 +30,7 @@ def get_speedtest():
 
 
 def upload_to_table(config, data):
+    """Uploads provided data to the local PSQL server using psycopg2"""
     connection = psycopg2.connect(host=config['DATABASE']['HOST'],
                                   database=config['DATABASE']['DB'],
                                   user=config['DATABASE']['USERNAME'],
